@@ -11,11 +11,14 @@
      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
      crossorigin=""/>
 
+  <!--Load markercluster CSS-->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
 
   <!--Link to local CSS-->
   <link rel="stylesheet" href="styles.css">
 
-  <title>My Webpage</title>
+  <title>ENGO 551 Lab 2</title>
 
 </head>
 <body data-spy="scroll" data-target="scrollSpyCol">
@@ -25,16 +28,7 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="index.html">ENGO 551 - Lab 2</a>
 
-      <form id="form_search" name="form_search" method="POST" action="{{ url_for('search') }}" class="form-inline">
-        <div class="form-group">
-          <div class="input-group">
-            <input class="form-control" placeholder="Search for a book..." type="text" name="searchText">
-            <span class="input-group-btn">
-              <button type="submit" class="btn btn-success">Submit</button>
-            </span>
-          </div>
-        </div>
-      </form>
+
 
     </div>
   </nav>
@@ -42,11 +36,34 @@
   <!--Bootstrap grid-->
   <div class="container-fluid">
     <div class="row">
-      <div class="col-sm-4">
+      <div class="col-md-3">
+        <h4>Building Permits Search</h4>
+        <p>Search the City of Calgary's Open Data API for information on the city's buildings.</p>
+
+
+        <form id="form_search" name="form_search">
+          <div class="form-group">
+              <label for="startDate">Enter a date range:</label>
+              <input class="form-control datePicker" id="startDate" name="startDate" type="text" placeholder="Click here to set a date">
+
+              <!-- <label for="endDate">Enter the end date:</label>
+              <input class="form-control datePicker" id="endDate" name="endDate" type="text" placeholder="Click here to set a date"> -->
+          </div>
+          <br/>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+
+        </form>
+        <br/>
+
+        <div class="alert alert-info" role="alert" id="test"></div>
 
       </div>
-      <div class="col-sm-8">
+      <div class="col-md-9">
         <div id="leafletMap"></div>
+
+
       </div>
     </div>
   </div>
@@ -60,5 +77,18 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
   crossorigin=""></script>
+
+  <!--Load Markercluster JS"-->
+  <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+
+  <!--Load Spiderifier JS-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+
+  <!--Load datepicker JS-->
+  <script src="https://cdn.jsdelivr.net/npm/litepicker/dist/litepicker.js"></script>
+
+  <!--Link to local JS-->
+  <script type="text/javascript "src="mapScripts.js"></script>
+
 </body>
 </html>
