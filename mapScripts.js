@@ -52,11 +52,12 @@ document.querySelector('form').addEventListener('submit', (e) => {
     createMarkers(response);
   });
 
+  //Make the alert box visible to show alerts
   document.getElementById('test').style.visibility = "visible";
 
+  //Stop the form from submitting to avoid refreshing the page
   e.preventDefault();
-  // Now you can use formData.get('foo'), for example.
-  // Don't forget e.preventDefault() if you want to stop normal form .submission
+
 });
 
 
@@ -104,19 +105,21 @@ function createMarkers(json) {
 
         let description = "<table class='table'><tr><th>Issued Date: </th><td>" + date + "</td> </tr> <tr> <th>Community Name: </th>" + "<td>" + community + "</td></tr><tr><th>Work Class Group: </th>" + "<td>" + wcGroup + "</td></tr><tr><th>Contractor: </th> <td>" + contractor + "</td> </tr><tr><th>Original Address: </th>" + "<td>" + address + "</td></tr></table>";
 
-
+        //Add marker to the spiderifier layer
         let marker = new L.marker([coords[1], coords[0]]);
         marker.desc = description;
-        //marker.desc = "<p>Issued Date: <p>" + date + "<br>" + "<p>Community Name: <p>" + community + "<br>" + "<p>Work Class Group: <p>" + wcGroup + "<br>" + "<p>Contractor Name: <p>" + contractor + "<br>" + "<p>Original Address: <p>" + address;
-        oms.addMarker(marker);  // <-- here
+        oms.addMarker(marker);
 
+        //Add marker to the cluster layer
         markers.addLayer(marker);
 
 
       }
     }
 
+    //Add cluster marker layer to the map
     map.addLayer(markers);
+    
     document.getElementById('test').innerHTML = "Successfully loaded " + data.features.length + " features.";
   }
 }
