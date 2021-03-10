@@ -1,6 +1,6 @@
-# ENGO 551 - Lab 2
+# ENGO 551 - Lab 3
 
-City of Calgary Interactive Building Permit Lookup using JavaScript and Leaflet.
+Visualizing Calgary open data through a stylized Mapbox Studio tileset and displaying it through Leaflet  
 
 ## Instructions
 1. Open the index.html file, and you're done!
@@ -9,10 +9,10 @@ City of Calgary Interactive Building Permit Lookup using JavaScript and Leaflet.
 
 ## Project Files
 ### index.html
-Main landing page for the app. Contains a Leaflet map of the city of Calgary running on OpenStreetMap, as well as a form to select a date range using the Litepicker JS date picker widget.
+Main landing page for the app. Contains a Leaflet map of the city of Calgary with separate Mapbox and OpenStreetMap (OSM) layers that can be toggled between using Leaflet's layer control panel on the upper right hand corner of the map window. Also contains a key table for understanding the symbology on the Mapbox map layer
 
 ### mapScripts.js
-JS file that allows page to make HTTP GET requests to the City of Calgary Socrata Open Data API to grab building permits, then displays them on the Leaflet map as clustered markers. Also contains spiderifier functionality for markers with overlapping locations. This file also initializes the Leaflet map and all of its associated extensions.
+JS file that configures the OSM and MapBox layers as separate map layers, then creates a single map instance that can toggle between one layer or another through a checkbox menu, and sets the MapBox layer as the default layer shown when the page is first opened.
 
 ### styles.css
-Extraneous CSS for site that controls the height of the Leaflet map (required) as well as element visibility.
+Extraneous CSS for site that controls the height of the Leaflet map (required) as well as styling the key table and circles in index.html.

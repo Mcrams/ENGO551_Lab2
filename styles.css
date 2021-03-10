@@ -7,10 +7,6 @@ body {
   height:95vh;
 }
 
-#test {
-  visibility: hidden;
-}
-
 .circle {
   display: inline-block;
   height: 20px;
