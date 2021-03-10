@@ -4,9 +4,17 @@ body {
 
 #leafletMap {
   width:100%;
-  height:100vh;
+  height:95vh;
 }
 
 #test {
   visibility: hidden;
+}
+
+.circle {
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  border: 1px solid black;
 }

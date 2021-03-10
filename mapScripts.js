@@ -1,59 +1,46 @@
-//Create Leaflet Map centered on Calgary
-const map = L.map('leafletMap').setView([51.0447, -114.0719], 10.5);
+const token = 'pk.eyJ1IjoibWlra29yYW1vcyIsImEiOiJja2o4MTJicmcwNGF5MzBwN3c2eGpiajJhIn0.6u3ND0vC40NLgZfQJOvO2A';
 
+//Add Mapbox Basemap
+const mapbox = L.tileLayer('https://api.mapbox.com/styles/v1/mikkoramos/ckm3uhj3f0vpz17qp7wsd03l8/tiles/{z}/{x}/{y}?access_token=' + token, {
+    tileSize: 512,
+    maxZoom: 18,
+    zoomOffset: -1,
+    attribution: '© <a href="https://apps.mapbox.com/feedback/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+});
+
+
+//mapbox://styles/mikkoramos/ckm3uhj3f0vpz17qp7wsd03l8
 //Add OSM Basemap
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     maxZoom: 18,
     tileSize: 512,
     zoomOffset: -1,
-}).addTo(map);
-
-//Add layer for markers and MarkerCluster
-let markers = L.markerClusterGroup();
-
-//Add spiderifier
-let oms = new OverlappingMarkerSpiderfier(map);
-
-let popup = new L.Popup();
-
-oms.addListener('click', function(marker) {
-  popup.setContent(marker.desc);
-  popup.setLatLng(marker.getLatLng());
-  map.openPopup(popup);
 });
 
-//Get current date for data validation
-const d = new Date();
+//Create Leaflet Map centered on Calgary
+const map = L.map('leafletMap', {
+  center: [51.0447, -114.0719],
+  zoom:11
+});
 
-//Initialize date picker widgets
-const dateRange = new Litepicker({
-    element: document.getElementById('startDate'),
-    maxDate: d,
-    singleMode: false,
-  });
+
+//Create toggle between mapbox and OSM layers
+L.control.layers({
+  "Mapbox": mapbox,
+  "OpenStreetMap": osm,
+}, null, {
+  collapsed: false
+}).addTo(map);
+
+mapbox.addTo(map); //  set as default
 
 //Save Variables from form
 document.querySelector('form').addEventListener('submit', (e) => {
   const formData = new FormData(e.target);
 
   //Grab the variables from the form as a string with both dates
-  const dates = formData.get('startDate');
-
-  //Grab the individual start and end dates from the larger string
-  let fromDate = dates.substr(0,10);
-  let endDate = dates.substr(13);
-
-  let requestURL = "https://data.calgary.ca/resource/c2es-76ed.geojson?" + "$where=issueddate > " + "\'" + fromDate + "\'" + " and issueddate < " + "\'" + endDate + "\'";
-
-  //Run the GET request on the API
-  var data = new HttpClient();
-  data.get(requestURL, function(response) {
-    createMarkers(response);
-  });
-
-  //Make the alert box visible to show alerts
-  document.getElementById('test').style.visibility = "visible";
+  const choice = formData.get('mapOptions');
 
   //Stop the form from submitting to avoid refreshing the page
   e.preventDefault();
@@ -119,7 +106,7 @@ function createMarkers(json) {
 
     //Add cluster marker layer to the map
     map.addLayer(markers);
-    
+
     document.getElementById('test').innerHTML = "Successfully loaded " + data.features.length + " features.";
   }
 }
